@@ -22,16 +22,20 @@ public class UserResourceController {
 
     @GetMapping(path = "/users/{id}")
     public User getUser(@PathVariable int id) {
-        return userDaoService.findOne(id);
+        User user = userDaoService.findOne(id);
+        if(user==null){
+            throw new UserNotFoundException("id:"+id+" - is not found in record");
+        }
+        return user;
     }
 
     @PostMapping(path = "/users")
     public ResponseEntity<User> saveUser(@RequestBody User user) {
-        User savedUser=userDaoService.saveUser(user);
+        User savedUser = userDaoService.saveUser(user);
         /**
          * Here in below lines we send a 201 created response using ResponseEntity, now we are sending a location of URI, so in response header consumer can view URI and access details of created user
          */
-        URI location= ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
 
         return ResponseEntity.created(location).build();
 
