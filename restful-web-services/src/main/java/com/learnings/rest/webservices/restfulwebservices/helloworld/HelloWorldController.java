@@ -1,6 +1,10 @@
 package com.learnings.rest.webservices.restfulwebservices.helloworld;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Locale;
 
 
 //REST API
@@ -36,6 +40,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class HelloWorldController {
     //@RequestMapping(method = RequestMethod.GET,path = "/helloWorld")
+
+    private MessageSource messageSource;
+
+    public HelloWorldController(MessageSource messageSource){
+        this.messageSource=messageSource;
+    }
     @GetMapping(path = "/helloWorld")
     public String helloWorld(){
         return "Hello World";
@@ -51,5 +61,12 @@ public class HelloWorldController {
     @GetMapping(path = "/hello-World/path-Variable/{msg}")
     public HelloWorldBean helloWorldPathVariable(@PathVariable String msg){
         return new HelloWorldBean("Hello -"+msg);
+    }
+
+    @GetMapping(path = "/hello-World-International")
+    public String helloWorldInternationalization(){
+        Locale locale= LocaleContextHolder.getLocale();
+        return messageSource.getMessage("good.morning.message",null,"default message",locale);
+       // return "Hello World ! Welcome to programming ";
     }
 }

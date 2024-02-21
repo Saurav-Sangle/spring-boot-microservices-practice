@@ -1,11 +1,17 @@
 package com.learnings.rest.webservices.restfulwebservices.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.util.List;
 
+@Entity(name="user_details")
 public class User {
+    @Id
+    @GeneratedValue
     private Integer id;
 
     @Size(min = 2,max = 12,message = "Name should have min 2 and max 12 characters")
@@ -18,6 +24,8 @@ public class User {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
+    }
+    protected User(){
     }
 
     public Integer getId() {
@@ -42,6 +50,18 @@ public class User {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore()
+    List<Post> posts;
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     @Override
