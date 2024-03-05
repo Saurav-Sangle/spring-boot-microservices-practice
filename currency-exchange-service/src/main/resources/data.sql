@@ -1,0 +1,2 @@
+insert into exchange_value(CONVERSION_MULTIPLE,PORT,ID,CURRENCY_FROM,CURRENCY_TO)
+values (75,1,10001,'USD','INR');
