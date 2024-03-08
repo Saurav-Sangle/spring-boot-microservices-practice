@@ -1,10 +1,10 @@
-package com.example.microservices.currencyconcversionservice;
+package com.example.microservices.netflixeureknamingserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CurrencyConcversionServiceApplicationTests {
+class NetflixEurekNamingServerApplicationTests {
 
 	@Test
 	void contextLoads() {
